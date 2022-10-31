@@ -42,20 +42,17 @@ export default class LoginScreen extends Component {
     const {navigation} = this.props;
     const value = this._form.getValue();
     if(value){
-
       userEmail = value.email;
       userPass = value.pass;
-
       authenticate(userEmail, userPass)
       .then(response => { 
-        console.log(response);
+        //console.log(response);
         console.log('value: ', value);
         navigation.navigate('Home2');
       })
       .catch(error => {
         console.error(error);
       })
-
     }
   } 
 

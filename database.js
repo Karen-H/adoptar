@@ -1,4 +1,5 @@
 import Realm from 'realm';
+import { SHA256 } from './sha';
 
 const UserSchema = {
   name: 'User',
@@ -40,18 +41,16 @@ const databaseOptions = {
 }
 
 export const addUser = (name, orgname, email, pass, wp, tel, ig, fb, tw) => new Promise((reject) => {
-
   Realm.open(databaseOptions).then(realm => {
-
-    let lastUser = realm.objects('User').length + 1;
-  
+    const lastUser = realm.objects('User').length + 1;
+    let hash = SHA256(pass);
     realm.write(() => {
       realm.create('User', {
           userId: lastUser, 
           userName: name,
           userOrgname: orgname,
           userEmail: email,
-          userPass: pass,
+          userPass: hash,
           userWp: wp,
           userTel: tel,
           userIg: ig,
@@ -59,15 +58,16 @@ export const addUser = (name, orgname, email, pass, wp, tel, ig, fb, tw) => new 
           userTw: tw
       });
   });
-  console.log(realm.objects('User').length);
-  console.log(realm.objects('User'));
-  }).catch((error) => reject(error));
+    console.log(realm.objects('User').length);
+    console.log(realm.objects('User'));
+    }).catch((error) => reject(error));
 });
 
 export const authenticate = (email, pass) => new Promise((resolve, reject) => {
   Realm.open(databaseOptions).then(realm => {
     let allUsers = realm.objects('User');
-    let user = allUsers.filtered(`userEmail='${email}' && userPass ='${pass}'`);
+    let hash = SHA256(pass);
+    const user = allUsers.filtered(`userEmail='${email}' && userPass ='${hash}'`);
     if (user.length == 0) {
       reject("El usuario no existe");
     }

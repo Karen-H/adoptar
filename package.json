@@ -25,6 +25,7 @@
     "react-hook-form": "^7.37.0",
     "react-moment": "^1.1.2",
     "react-native": "0.70.2",
+    "react-native-crypto": "^2.2.0",
     "react-native-gesture-handler": "^2.7.0",
     "react-native-image-picker": "^4.10.0",
     "react-native-reanimated": "^2.10.0",
@@ -32,6 +33,7 @@
     "react-native-screens": "^3.18.2",
     "react-native-sha256": "^1.4.8",
     "react-native-ui-xg": "^0.0.6",
+    "readline-sync": "^1.4.10",
     "realm": "^11.0.0",
     "tcomb-form-native": "^0.6.20",
     "yup": "^0.32.11"
